@@ -36,32 +36,43 @@ if not AGENT_ID:
 # --------------------------------------------------
 st.markdown("""
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+html, body, [data-testid="stAppViewContainer"], [data-testid="stHeader"] {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #0b0e14;
+}
+
 .stApp {
     background-color: #0b0e14;
 }
 
+/* Glassmorphic cards with glowing border */
 .capability-card {
-    background: linear-gradient(145deg, #151921, #0f1218);
-    padding: 10px;
-    border-radius: 14px;
-    border: 1px solid #232a35;
-    box-shadow: 0 6px 25px rgba(0,0,0,0.4);
-    margin-bottom: 5px;
-    min-height: 100px;
-    transition: all 0.3s ease;
+    background: linear-gradient(145deg, rgba(21, 25, 33, 0.7), rgba(15, 18, 24, 0.7));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 24px;
+    border-radius: 16px;
+    border: 1px solid rgba(35, 42, 53, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+    min-height: 120px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .capability-card:hover {
-    border-color: #00d4ff;
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.25);
-    transform: translateY(-4px);
+    border-color: rgba(0, 212, 255, 0.6);
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.2);
+    transform: translateY(-5px);
 }
 
 .card-title {
     color: #00d4ff;
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
 .card-text {
@@ -72,19 +83,61 @@ st.markdown("""
 
 .hero-title {
     text-align: center;
-    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: 800;
+    font-size: 2.8rem;
+    letter-spacing: -0.03em;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #ffffff 40%, #00d4ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .hero-subtitle {
     text-align: center;
     color: #94a3b8;
-    margin-bottom: 5px;
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-bottom: 15px;
 }
 
 .footer-text {
-    color: #6b7280;
+    color: #4b5563;
     text-align: center;
-    margin-top: 5px;
+    margin-top: 25px;
+    font-size: 0.85rem;
+}
+
+/* Custom premium divider styling */
+hr {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, rgba(0, 212, 255, 0), rgba(0, 212, 255, 0.25), rgba(0, 212, 255, 0));
+    margin: 20px 0;
+}
+
+/* Responsive typography and paddings */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.0rem !important;
+    }
+    .hero-subtitle {
+        font-size: 1.05rem !important;
+    }
+    .card-title {
+        font-size: 1.15rem !important;
+    }
+    .card-text {
+        font-size: 0.88rem !important;
+    }
+    .capability-card {
+        padding: 16px;
+        min-height: auto;
+        margin-bottom: 10px;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
@@ -92,7 +145,7 @@ st.markdown("""
 # --------------------------------------------------
 # 4️⃣ HERO SECTION
 # --------------------------------------------------
-st.markdown('<h1 class="hero-title">📞 AI Sales Representative</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="hero-title">📞 <span class="gradient-text">AI Sales Representative</span></h1>', unsafe_allow_html=True)
 st.markdown('<h3 class="hero-subtitle">Accelerate your sales cycle with Voice AI.</h3>', unsafe_allow_html=True)
 
 st.divider()
@@ -138,9 +191,20 @@ else:
         <head>
             <script src="https://elevenlabs.io/convai-widget/index.js"></script>
             <style>
-                body {{
+                html, body {{
                     margin: 0;
+                    padding: 0;
                     background: transparent;
+                    overflow-x: hidden;
+                    overflow-y: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: flex-start;
+                    height: 100%;
+                    width: 100%;
+                }}
+                elevenlabs-convai {{
+                    margin-top: 10px;
                 }}
             </style>
         </head>
@@ -149,7 +213,7 @@ else:
         </body>
         </html>
         """,
-        height=150
+        height=380
     )
 
 # --------------------------------------------------
